@@ -324,6 +324,33 @@ out_100.9_full_oth_worst <- impute_worst_case_bounds(out_100.9_full_oth,
 out_100.9_full_non_worst <- impute_worst_case_bounds(out_100.9_full_non,
                                                      "non")
 
+# save data for UROP ####
+# pull in full data and merge to get to get longitudinal data with partisanship
+ar_personnel <- readRDS("../data/state-employee-data/AR/clean/ar-15-22-premerge.rds")
+ar_prison_locations <- read_csv("../data/correctional-officers/prison-geocodings/ar-prisons.csv")
+
+ar_correctional <- ar_personnel %>% 
+  filter(personnel_area_description %in% ar_prison_locations$facility) %>% 
+  mutate(personnel_area_description = str_replace_all(personnel_area_description, 
+                                                      "-|\\s",
+                                                      "_"))
+
+out_100.9_full_party <- out_100.9_full %>% 
+  select(dedupe.ids, 
+         facility,
+         partisanship)
+
+ar_correctional_full_100 <- left_join(ar_correctional, 
+                                      out_100.9_full_party,
+                                      by = c("dedupe.ids", 
+                                             "personnel_area_description" = "facility"))
+ar_correctional_full_100_misses <- anti_join(ar_correctional, 
+                                             out_100.9_full_party,
+                                             by = c("dedupe.ids", 
+                                                    "personnel_area_description" = "facility"))
+saveRDS(ar_correctional_full_100, 
+        "../../urop/urop-shared/analysis/data/raw/ar-15-22-COs-merged.rds")
+
 # Plots ####
 # summary of diagnostic information
 sum_25 <- summary(out_25.9_diagnostics,
