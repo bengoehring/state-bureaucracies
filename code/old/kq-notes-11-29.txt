@@ -1,0 +1,11 @@
+These were some of KQ's thoughts after I sent him my merge memo. 
+
+
+-- look into whether you can incorporate the marginal rate of registration in a state into fastlink. This might actually be possible and would be super helpful. 
+
+-- Rather than just take the observation with probability of a true match > .9, you could think about taking the weighted average partisanship for all matches greater than like .5. The weights would be the probability of a true match I am not exactly sure how to to do the weighted average of a categorical variable but you could follow up with Kevin on that. Maybe the idea is to reweight the probabilities that a given person is dem, etc, which should all add up to 1 using the weights, which will also all add up to 1. So you are just reweighting the proportion of democratic matches etc. 
+
+
+-- On the issue of one to multiple matches, look into whether they all add up to 1, if not what is going on? If the there are seven david peterson voting records, shouldnt the probability that each one is the true match add up to 1? 
+
+- One option regarding the FNR: manually verify the FNR by looking at 100 employees who did not match and look at their ten closest matches — see if they look like reasonable TRUE or FALSE negatives. 

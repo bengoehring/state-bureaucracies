@@ -1,0 +1,25 @@
+For each state's personnel file, I conducted the following steps.
+
+1) Read in the data. 
+
+2) Conduct basic cleaning of the variable names and the variables themselves, including making all character variables lowercase and parsing names (if necessary). Be sure to remove punctuation from name variables and make all character variables lower case. Also create a suffix variable if it is not there. 
+
+3) If the data already includes a unique id for each employee, then create a dataset where each row corresponds to a period-person. Once this dataset is constructed, check whether there are duplicate entries for each person-period. If duplicates do exist, sum up the salary variables across the person-period unit and select the row in which the employee earned a higher salary. Use fill() to fill in any potential missing values on person-specific variables by id. Check for any changes across these variables by id
+
+Once complete, arrange the columns such that the period column is first and the person-level variables follow. Save this dataset using saveRds() --- it is ready to be merged with the state voter file. 
+
+4) If the data does not include a unique id for each employee, use fastLink() to probabilistically assign ids to the employees. These scripts need to be run on the cluster. If available, block on gender, race, and/or original hire date. 
+
+Once the ids are assigned, go through and look for false positives (i.e. an id assigned to a group of observations that represent more than one actual state employee). The goal is to create ids that are unique within a person-period (except for states that represent intra-period job changes with more than one record for the period).   
+
+
+
+
+
+
+
+
+
+
+
+
